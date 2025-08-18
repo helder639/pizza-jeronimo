@@ -16,7 +16,7 @@ class LoginPage{
         cy.get(this.selectorList().emailField).type(email)
         cy.get(this.selectorList().passwordField).type(senha)
         cy.get(this.selectorList().loginButton).click()
-        cy.get(this.selectorList().menuPrincipal).should('be.visible')
+        cy.get(this.selectorList().menuPrincipal, { timeout: 10000}).should('be.visible')
     }
 
     failLogin(email,senha){
