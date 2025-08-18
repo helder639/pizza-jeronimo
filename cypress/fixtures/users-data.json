@@ -1,0 +1,18 @@
+{
+    "userSucess": {
+        "email": "teste1@gmail.com",
+        "senha": "teste1"
+    },
+    "userFail_1": {
+        "email": "teste1@gmail.com",
+        "senha": "teste2"
+    },
+    "userFail_2": {
+        "email": "teste2@gmail.com",
+        "senha": "teste1"
+    },
+    "userFail_3": {
+        "email": "Teste1@gmail.com",
+        "senha": "Teste1"
+    }
+}

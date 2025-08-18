@@ -1,0 +1,16 @@
+node_modules/
+npm-debug.log
+.env
+.DS_Store
+[Bb]in/
+[Oo]bj/
+*.log
+*.pfx
+*.pdb
+*.suo
+*.user
+*.useros
+[Dd]ebug/
+[Rr]elease/
+.vs/
+TestResults/
