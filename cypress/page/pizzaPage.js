@@ -8,7 +8,7 @@ class PizzaPage{
             personalizada: "[href='personalizar.html']",
             carrinho: "[href='carrinho.html']",
             buttonAdd: "[onclick='mostrarTamanhos(this)']",
-            pizzas: ".menu-item",
+            item: ".menu-item",
             bordas: ".borda-recheada",
             quantMais: "[onclick='alterarQuantidade(this, 1)']",
             quantMenos: "[onclick='alterarQuantidade(this, -1)']",
@@ -30,6 +30,11 @@ class PizzaPage{
             pagamento: "[onchange='mostrarCampoTroco()']",
             enviarPedido: "[onclick='confirmarPedidoComEndereco()']",
             precoFinal: "#total-final-modal",
+            addCocaLata: "[onclick='adicionarCarrinho('Coca-Cola Lata', 'Lata', 5.00, this')]",
+            mudar600ml: "[onclick='mudarCarrossel600ml(1)']",
+            addRefri600ml: "[onclick='adicionarRefri600ml(this)']",
+            addVinhoBranco: "[onclick='adicionarCarrinho('Vinho Branco', 'Garrafa 750ml', 35.00, this)']",
+            troco: "[placeholder='Ex: 50']",
         }
         return selectors
     }
@@ -38,7 +43,7 @@ class PizzaPage{
         cy.get(this.selectorList().buttonAdd).eq(2).click()
         cy.get(this.selectorList().buttonGrande).eq(2).click()
         cy.get(this.selectorList().quant).eq(2).should('have.value', '1')
-        cy.get(this.selectorList().pizzas).eq(10).then(($option) => {
+        cy.get(this.selectorList().item).eq(10).then(($option) => {
 
             cy.wrap($option).scrollIntoView();
 
@@ -50,7 +55,7 @@ class PizzaPage{
         cy.get(this.selectorList().quant).eq(10).should('have.value', '1')
         cy.get(this.selectorList().buttonAdd).eq(10).click()
         cy.get(this.selectorList().buttonMedia).eq(10).click()
-        cy.get(this.selectorList().pizzas).eq(13).then(($option) => {
+        cy.get(this.selectorList().item).eq(13).then(($option) => {
 
             cy.wrap($option).scrollIntoView()
 
@@ -85,7 +90,8 @@ class PizzaPage{
     }
 
     compraDoce(){
-        cy.get(this.selectorList().pizzas).eq(8).then(($option) => {
+        cy.get(this.selectorList().pizzaDoce).click()
+        cy.get(this.selectorList().item).eq(8).then(($option) => {
 
             cy.wrap($option).scrollIntoView();
 
@@ -98,7 +104,7 @@ class PizzaPage{
         cy.get(this.selectorList().buttonAdd).eq(8).click()
         cy.get(this.selectorList().buttonMedia).eq(8).click()
 
-        cy.get(this.selectorList().pizzas).eq(1).then(($option) => {
+        cy.get(this.selectorList().item).eq(1).then(($option) => {
 
             cy.wrap($option).scrollIntoView()
 
@@ -126,6 +132,46 @@ class PizzaPage{
         cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 134,60')
         cy.get(this.selectorList().enviarPedido).click()
         //cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
+    }
+
+    compraBebidas(){
+        cy.get(this.selectorList().bebidas).click()
+        cy.get(this.selectorList().item).eq(0).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().addCocaLata).click()
+        cy.get(this.selectorList().item).eq(6).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().mudar600ml).dblclick()
+        cy.get(this.selectorList().quantMais).click()
+        cy.get(this.selectorList().quant).eq(6).should('have.value', '2')
+        cy.get(this.selectorList().addRefri600ml).click()
+        cy.get(this.selectorList().item).eq(11).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().addVinhoBranco).click()
+
+        cy.get(this.selectorList().carrinho).click()
+        cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 5,00').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(1).should('have.text', 'R$ 16,00').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(2).should('have.text', 'R$ 35,00').and('be.visible')
+        cy.get(this.selectorList().precoTotal).eq(1).should('have.text', 'R$ 56,00').and('be.visible')
+        cy.get(this.selectorList().finalizar).click()
+        cy.get(this.selectorList().rua).type('Av. Rua Estrada')
+        cy.get(this.selectorList().numero).type('0')
+        cy.get(this.selectorList().bairro).type('Rodovia')
+        cy.get(this.selectorList().complemento).type('É a com asfalto')
+        cy.get(this.selectorList().cep).type('86300-188')
+        cy.get(this.selectorList().referencia).type('É um cadinho pra direita e outro pra esquerda')  
+        cy.get(this.selectorList().tipoEntrega).select('🚚 Entrega (+R$ 3,00)')
+        cy.get(this.selectorList().pagamento).select('💵 Dinheiro')
+        cy.get(this.selectorList().troco).type('20,25')
+        cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 59,00')
+        cy.get(this.selectorList().enviarPedido).click()
+        //cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
+
+
     }
 
 }
