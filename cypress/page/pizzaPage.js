@@ -30,11 +30,11 @@ class PizzaPage{
             pagamento: "[onchange='mostrarCampoTroco()']",
             enviarPedido: "[onclick='confirmarPedidoComEndereco()']",
             precoFinal: "#total-final-modal",
-            addCocaLata: "[onclick='adicionarCarrinho('Coca-Cola Lata', 'Lata', 5.00, this')]",
             mudar600ml: "[onclick='mudarCarrossel600ml(1)']",
             addRefri600ml: "[onclick='adicionarRefri600ml(this)']",
             addVinhoBranco: "[onclick='adicionarCarrinho('Vinho Branco', 'Garrafa 750ml', 35.00, this)']",
             troco: "[placeholder='Ex: 50']",
+            allButtons: "button",
         }
         return selectors
     }
@@ -102,7 +102,7 @@ class PizzaPage{
         cy.get(this.selectorList().quantMenos).eq(8).click()
         cy.get(this.selectorList().quant).eq(8).should('have.value', '1')
         cy.get(this.selectorList().buttonAdd).eq(8).click()
-        cy.get(this.selectorList().buttonMedia).eq(8).click()
+        cy.get(this.selectorList().allButtons).eq(43).click()
 
         cy.get(this.selectorList().item).eq(1).then(($option) => {
 
@@ -113,7 +113,7 @@ class PizzaPage{
         cy.get(this.selectorList().bordas).eq(1).should('have.value', 'Chocolate ao leite')
         cy.get(this.selectorList().quant).eq(1).should('have.value', '1')
         cy.get(this.selectorList().buttonAdd).eq(1).click()
-        cy.get(this.selectorList().buttonMedia).eq(1).click()
+        cy.get(this.selectorList().allButtons).eq(8).click()
 
         cy.get(this.selectorList().carrinho).click()
         cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 65,80').and('be.visible')//para elementos <td> usar have.text
@@ -139,18 +139,18 @@ class PizzaPage{
         cy.get(this.selectorList().item).eq(0).then(($option) => {
             cy.wrap($option).scrollIntoView()
         })
-        cy.get(this.selectorList().addCocaLata).click()
+        cy.get(this.selectorList().allButtons).eq(2).click()
         cy.get(this.selectorList().item).eq(6).then(($option) => {
             cy.wrap($option).scrollIntoView()
         })
         cy.get(this.selectorList().mudar600ml).dblclick()
-        cy.get(this.selectorList().quantMais).click()
+        cy.get(this.selectorList().quantMais).eq(6).click()
         cy.get(this.selectorList().quant).eq(6).should('have.value', '2')
         cy.get(this.selectorList().addRefri600ml).click()
         cy.get(this.selectorList().item).eq(11).then(($option) => {
             cy.wrap($option).scrollIntoView()
         })
-        cy.get(this.selectorList().addVinhoBranco).click()
+        cy.get(this.selectorList().allButtons).eq(37).click()
 
         cy.get(this.selectorList().carrinho).click()
         cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 5,00').and('be.visible')
@@ -170,7 +170,9 @@ class PizzaPage{
         cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 59,00')
         cy.get(this.selectorList().enviarPedido).click()
         //cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
+    }
 
+    compraPersonalizada(){
 
     }
 

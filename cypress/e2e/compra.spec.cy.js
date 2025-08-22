@@ -15,4 +15,16 @@ describe('Realizando compras em cada pagina separadamente', () => {
     pizzaPage.compraSalgada()
   })
 
+  it('Pizza Doce', () => {
+    pizzaPage.compraDoce()
+  })
+
+  it('Bebidas', () => {
+    pizzaPage.compraBebidas()
+  })
+  
+  it('Pizza Personalizada', () => {
+    
+  })
+
 })
