@@ -35,6 +35,12 @@ class PizzaPage{
             addVinhoBranco: "[onclick='adicionarCarrinho('Vinho Branco', 'Garrafa 750ml', 35.00, this)']",
             troco: "[placeholder='Ex: 50']",
             allButtons: "button",
+            tamanho: "[name='tamanho']",
+            bordaP: "[name='borda']",
+            metade1: "[name='metade1']",
+            metade2: "[name='metade2']",
+            quantidadeP: "[name='quantidade']",
+            adicionarCarrinhoP: "[type='submit']"
         }
         return selectors
     }
@@ -173,7 +179,38 @@ class PizzaPage{
     }
 
     compraPersonalizada(){
+        cy.get(this.selectorList().personalizada).click()
+        cy.get(this.selectorList().tamanho).select('Grande')
+        cy.get(this.selectorList().bordaP).select('Cream Cheese')
+        cy.get(this.selectorList().metade1).select('4 Queijos')
+        cy.get(this.selectorList().metade2).select('Canadense')
+        cy.get(this.selectorList().quantidadeP).clear()
+        cy.get(this.selectorList().quantidadeP).type('2')
+        cy.get(this.selectorList().adicionarCarrinhoP).click()
+        cy.get(this.selectorList().personalizada).click()
+        cy.get(this.selectorList().tamanho).select('Média')
+        cy.get(this.selectorList().bordaP).select('Chocolate')
+        cy.get(this.selectorList().metade1).select('Prestígio')
+        cy.get(this.selectorList().metade2).select('Bis ao Leite')
+        cy.get(this.selectorList().adicionarCarrinhoP).click()
 
+        cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 157,60').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(1).should('have.text', 'R$ 65,80').and('be.visible')
+        cy.get(this.selectorList().precoTotal).eq(1).should('have.text', 'R$ 223,40').and('be.visible')
+        cy.get(this.selectorList().finalizar).click()
+        cy.get(this.selectorList().rua).type('Av. Rua Estrada')
+        cy.get(this.selectorList().numero).type('0')
+        cy.get(this.selectorList().bairro).type('Rodovia')
+        cy.get(this.selectorList().complemento).type('É a com asfalto')
+        cy.get(this.selectorList().cep).type('86300-188')
+        cy.get(this.selectorList().referencia).type('É um cadinho pra direita e outro pra esquerda')  
+        cy.get(this.selectorList().tipoEntrega).select('🏠 Retirar na Pizzaria (Grátis)')
+        cy.get(this.selectorList().pagamento).select('💳 Cartão de Crédito')
+        cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 223,40')
+        cy.get(this.selectorList().enviarPedido).click()
+        //cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
+
+        
     }
 
 }

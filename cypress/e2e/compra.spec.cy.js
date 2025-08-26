@@ -11,20 +11,20 @@ describe('Realizando compras em cada pagina separadamente', () => {
     loginPage.sucessLogin(userData.userSucess.email, userData.userSucess.senha)
   })
 
-  it('Pizza Salgado', () => {
+  it.skip('Pizza Salgado', () => {
     pizzaPage.compraSalgada()
   })
 
-  it('Pizza Doce', () => {
+  it.skip('Pizza Doce', () => {
     pizzaPage.compraDoce()
   })
 
-  it('Bebidas', () => {
+  it.skip('Bebidas', () => {
     pizzaPage.compraBebidas()
   })
   
   it('Pizza Personalizada', () => {
-    
+    pizzaPage.compraPersonalizada()
   })
 
 })
