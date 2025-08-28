@@ -40,7 +40,9 @@ class PizzaPage{
             metade1: "[name='metade1']",
             metade2: "[name='metade2']",
             quantidadeP: "[name='quantidade']",
-            adicionarCarrinhoP: "[type='submit']"
+            adicionarCarrinhoP: "[type='submit']",
+            remover: ".remover-btn",
+            quantCarrinho: ".quantidade-btn"
         }
         return selectors
     }
@@ -51,7 +53,7 @@ class PizzaPage{
         cy.get(this.selectorList().quant).eq(2).should('have.value', '1')
         cy.get(this.selectorList().item).eq(10).then(($option) => {
 
-            cy.wrap($option).scrollIntoView();
+            cy.wrap($option).scrollIntoView()
 
         })
         cy.get(this.selectorList().bordas).eq(10).select('Cheddar')
@@ -209,8 +211,86 @@ class PizzaPage{
         cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 223,40')
         cy.get(this.selectorList().enviarPedido).click()
         //cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
+    }
 
-        
+    fluxoCompra(){
+        cy.get(this.selectorList().item).eq(8).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().bordas).eq(8).select('Catupiry')
+        cy.get(this.selectorList().bordas).eq(8).should('have.value', 'Catupiry')
+        cy.get(this.selectorList().quantMais).eq(8).click()
+        cy.get(this.selectorList().quant).eq(8).should('have.value', '2')
+        cy.get(this.selectorList().buttonAdd).eq(8).click()
+        cy.get(this.selectorList().buttonGrande).eq(8).click()
+
+        cy.get(this.selectorList().item).eq(18).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().bordas).eq(18).select('Cheddar')
+        cy.get(this.selectorList().bordas).eq(18).should('have.value', 'Cheddar')
+        cy.get(this.selectorList().quant).eq(18).should('have.value', '1')
+        cy.get(this.selectorList().buttonAdd).eq(18).click()
+        cy.get(this.selectorList().buttonMedia).eq(18).click()
+
+        cy.get(this.selectorList().pizzaDoce).click()
+        cy.get(this.selectorList().item).eq(4).then(($option) => {
+            cy.wrap($option).scrollIntoView()
+        })
+        cy.get(this.selectorList().bordas).eq(4).select('Chocolate ao leite')
+        cy.get(this.selectorList().bordas).eq(4).should('have.value', 'Chocolate ao leite')
+        cy.get(this.selectorList().quant).eq(4).should('have.value', '1')
+        cy.get(this.selectorList().buttonAdd).eq(4).click()
+        cy.get(this.selectorList().allButtons).eq(24).click()
+
+        cy.get(this.selectorList().personalizada).click()
+        cy.get(this.selectorList().tamanho).select('Grande')
+        cy.get(this.selectorList().bordaP).select('Sem borda')
+        cy.get(this.selectorList().metade1).select('4 Queijos')
+        cy.get(this.selectorList().metade2).select('Palmito')
+        cy.get(this.selectorList().adicionarCarrinhoP).click()
+
+        cy.get(this.selectorList().bebidas).click()
+        cy.get(this.selectorList().quantMais).eq(0).click()
+        cy.get(this.selectorList().allButtons).eq(2).click()
+        cy.get(this.selectorList().quantMais).eq(2).click()
+        cy.get(this.selectorList().allButtons).eq(8).click()
+        cy.get(this.selectorList().item).eq(5).then(($option) => {
+            cy.wrap($option).scrollIntoView
+        })
+        cy.get(this.selectorList().quantMais).eq(5).dblclick()
+        cy.get(this.selectorList().allButtons).eq(17).click()
+
+        cy.get(this.selectorList().carrinho).click()
+        cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 133,60').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(1).should('have.text', 'R$ 65,80').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(2).should('have.text', 'R$ 73,80').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(3).should('have.text', 'R$ 59,90').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(4).should('have.text', 'R$ 10,00').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(5).should('have.text', 'R$ 10,00').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(6).should('have.text', 'R$ 15,00').and('be.visible')
+        cy.get(this.selectorList().precoTotal).eq(1).should('have.text', 'R$ 368,10').and('be.visible')
+        cy.get(this.selectorList().remover).eq(5).click()
+        cy.get(this.selectorList().quantCarrinho).eq(10).click()
+        cy.get(this.selectorList().precoIndividual).eq(0).should('have.text', 'R$ 133,60').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(1).should('have.text', 'R$ 65,80').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(2).should('have.text', 'R$ 73,80').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(3).should('have.text', 'R$ 59,90').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(4).should('have.text', 'R$ 10,00').and('be.visible')
+        cy.get(this.selectorList().precoIndividual).eq(5).should('have.text', 'R$ 10,00').and('be.visible')
+        cy.get(this.selectorList().precoTotal).eq(1).should('have.text', 'R$ 353,10').and('be.visible')
+        cy.get(this.selectorList().observacao).type('Capricha nessas pizzas ai em rapá.')
+        cy.get(this.selectorList().finalizar).click()
+        cy.get(this.selectorList().rua).type('Av. Rua Estrada')
+        cy.get(this.selectorList().numero).type('0')
+        cy.get(this.selectorList().bairro).type('Rodovia')
+        cy.get(this.selectorList().complemento).type('É a com asfalto')
+        cy.get(this.selectorList().cep).type('86300-188')
+        cy.get(this.selectorList().referencia).type('É um cadinho pra direita e outro pra esquerda')  
+        cy.get(this.selectorList().tipoEntrega).select('🚚 Entrega (+R$ 3,00)')
+        cy.get(this.selectorList().pagamento).select('📱 PIX')
+        cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 356,10')
+        cy.get(this.selectorList().enviarPedido).click()
     }
 
 }

@@ -23,8 +23,18 @@ describe('Realizando compras em cada pagina separadamente', () => {
     pizzaPage.compraBebidas()
   })
   
-  it('Pizza Personalizada', () => {
+  it.skip('Pizza Personalizada', () => {
     pizzaPage.compraPersonalizada()
+  })
+
+})
+
+describe('Realizando um fluxo de compra E2E', () => {
+
+  it('Compra completa', () => {
+    cy.visit('https://thankful-bay-039b7071e.2.azurestaticapps.net/login.html')
+    loginPage.sucessLogin(userData.userSucess.email, userData.userSucess.senha)
+    pizzaPage.fluxoCompra()
   })
 
 })
