@@ -291,6 +291,7 @@ class PizzaPage{
         cy.get(this.selectorList().pagamento).select('📱 PIX')
         cy.get(this.selectorList().precoFinal).should('have.text', 'R$ 356,10')
         cy.get(this.selectorList().enviarPedido).click()
+        cy.readFile('cypress/downloads/pedido-pizzaria.pdf').should('exist')
     }
 
 }
