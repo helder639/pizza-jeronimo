@@ -12,8 +12,8 @@ export function handleSummary(data) {
 
 export const options = {
   stages: [
-    { duration: '60s', target: 2500 }, 
-    { duration: '4m', target: 2500 }, 
+    { duration: '60s', target: 200 }, 
+    { duration: '4m', target: 200 }, 
     {duration: '30s', target: 0 },
     ],
 };
